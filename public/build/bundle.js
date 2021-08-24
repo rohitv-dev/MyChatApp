@@ -5825,7 +5825,7 @@ var app = (function () {
 
     const loginOb = loginObject();
 
-    const socket = io("http://127.0.0.1:3000");
+    const socket = io("https://guarded-hollows-33829.herokuapp.com/");
 
     socket.on("broadcast-msg", (data) => {
       const { username, message } = data;
