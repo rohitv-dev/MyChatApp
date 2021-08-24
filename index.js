@@ -1,18 +1,13 @@
 const express = require("express")
-const httpServer = require("http").createServer()
 const app = express()
+const server = require("http").Server(app)
+const io = module.exports.io = require("socket.io")(server)
 
 let noOfUsers = 0
 let users = []
 let GLOBAL_ROOM = "Lounge"
 
-app.use(express.static('public'))
-
-const io = require("socket.io")(httpServer, {
-  cors: {
-    origin: "*"
-  }
-});
+app.use(express.static(__dirname + './public'))
 
 io.on("connection", (socket) => {
   socket.on("new-connection", (data) => {
@@ -41,4 +36,6 @@ io.on("connection", (socket) => {
   })
 })
 
-httpServer.listen(3000);
+server.listen(3000, () => {
+
+})
