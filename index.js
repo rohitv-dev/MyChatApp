@@ -1,13 +1,14 @@
 const express = require("express")
 const app = express()
-const server = require("http").Server(app)
-const io = module.exports.io = require("socket.io")(server)
+const server = require("http").createServer(app)
+const { Server } = require("socket.io")
+const io = new Server(server)
 
 let noOfUsers = 0
 let users = []
 let GLOBAL_ROOM = "Lounge"
 
-app.use(express.static(__dirname + './public'))
+app.use(express.static(__dirname + '/public'))
 
 io.on("connection", (socket) => {
   socket.on("new-connection", (data) => {
